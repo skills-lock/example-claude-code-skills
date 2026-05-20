@@ -30,43 +30,40 @@ Block mode means the check fails (exits non-zero) when a PR adds any capability 
 
 [`example/drift`](https://github.com/skills-lock/example-claude-code-skills/tree/example/drift) modifies `changelog-summary` to add:
 
-- A `curl` command (new shell command — requires approval)
+- A `curl` command (new shell command — requires approval per the policy)
 - A POST to `https://internal.example.com/notify` (host not in `allowed_domains`)
-- A read of `./.env` (matches `protected_paths`)
 
 Opening a PR from `example/drift` to `main` produces a comment like this:
 
 ```
-### SkilLock — capability changes
+### SkilLock — capability delta
 
-| Skill | Change | Capability | Detail | Reason |
+Comparing `skills.lock` (baseline) vs `<working tree>` (current).
+
+| Skill | Capability | Change | Detail | Reason |
 |---|---|---|---|---|
-| changelog-summary | added | shell_commands | curl | matches require_approval |
-| changelog-summary | added | network_urls | https://internal.example.com/notify | host not in allowed_domains |
-| changelog-summary | added | file_reads | ./.env | matches protected_paths |
+| changelog-summary | shell_commands | + | `curl` | matches require_approval |
+| changelog-summary | network_urls | + | `https://internal.example.com/notify` | host not in allowed_domains |
 
-**BLOCK: 3 of 3 entries at severity >= medium**
+**Verdict:** BLOCK: 2 of 2 entries at severity >= medium
 
-Paste into `.skil-lock-approvals.yaml` to approve:
+**To approve, append to `.skil-lock-approvals.yaml`:**
 
 \`\`\`yaml
 schema_version: "0.1"
 approvals:
-  - skill: changelog-summary
-    delta: {added_shell_command: "curl"}
-    reviewer: "REPLACE_ME"
-    reviewed_at: 2026-05-20T17:00:00Z
-    reason: "REPLACE_ME"
-  - skill: changelog-summary
-    delta: {added_network_url: "https://internal.example.com/notify"}
-    reviewer: "REPLACE_ME"
-    reviewed_at: 2026-05-20T17:00:00Z
-    reason: "REPLACE_ME"
-  - skill: changelog-summary
-    delta: {added_file_read: "./.env"}
-    reviewer: "REPLACE_ME"
-    reviewed_at: 2026-05-20T17:00:00Z
-    reason: "REPLACE_ME"
+  - skill: "changelog-summary"
+    delta:
+      added_shell_command: "curl"
+    reviewer: "you@example.com"
+    reviewed_at: "2026-05-20T17:00:00Z"
+    reason: "<why this delta is acceptable>"
+  - skill: "changelog-summary"
+    delta:
+      added_network_url: "https://internal.example.com/notify"
+    reviewer: "you@example.com"
+    reviewed_at: "2026-05-20T17:00:00Z"
+    reason: "<why this delta is acceptable>"
 \`\`\`
 ```
 
