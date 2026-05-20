@@ -1,0 +1,52 @@
+# skills.lock — generated and maintained by skil-lock. Do not hand-edit.
+# Commit this file. PR reviewers will see capability deltas inline.
+
+schema_version: "0.1"
+generated_at: 2026-05-20T16:52:10Z
+generated_by: skil-lock 0.1.0
+skills:
+  changelog-summary:
+    runtime: claude
+    source_path: .claude/skills/changelog-summary/SKILL.md
+    version: ""
+    content_hash: sha256:b25de623498b95138ae7b96b9df395740b3e820f856be270d488563360d08879
+    behavior:
+      shell_commands:
+        - cat
+        - git
+      network_urls: []
+      file_reads:
+        - CHANGELOG.md
+      file_writes: []
+      allowed_tools: []
+      bundled_scripts: []
+  hello-greeter:
+    runtime: claude
+    source_path: .claude/skills/hello-greeter/SKILL.md
+    version: ""
+    content_hash: sha256:7b8a81377b2a1a37fdc00b0b6590b432e57078638f3e732cd8f4950cd40fe29d
+    behavior:
+      shell_commands: []
+      network_urls: []
+      file_reads: []
+      file_writes: []
+      allowed_tools: []
+      bundled_scripts: []
+  release-publisher:
+    runtime: claude
+    source_path: .claude/skills/release-publisher/SKILL.md
+    version: ""
+    content_hash: sha256:e4062aa715f05a743aa088379ad91f53fd01d50bd3f88c06a5fb580c952060b3
+    behavior:
+      shell_commands:
+        - cat
+        - gh
+        - git
+      network_urls:
+        - https://api.github.com
+      file_reads:
+        - CHANGELOG.md
+        - release-notes.md
+      file_writes: []
+      allowed_tools: []
+      bundled_scripts: []

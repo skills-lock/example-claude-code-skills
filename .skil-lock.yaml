@@ -1,0 +1,31 @@
+# SkilLock policy for example-claude-code-skills.
+#
+# `block` mode means CI fails the build when a PR adds capability at
+# severity >= medium that isn't covered by an approval in
+# .skil-lock-approvals.yaml. Pair with the workflow in
+# .github/workflows/skil-lock.yml to enforce this on every PR.
+
+mode: block
+
+# Any added shell command needs an explicit approval entry. This is
+# the strictest setting; flip to a smaller list once you know what
+# your skills actually need.
+require_approval:
+  - shell_commands
+
+# Paths that no skill is allowed to read or write without approval.
+# Glob syntax matches doublestar (** = recursive).
+protected_paths:
+  - .env
+  - .env.*
+  - "**/*.pem"
+  - "**/secrets/**"
+  - id_rsa
+  - id_rsa.*
+
+# Allowed network hosts. Glob-matched against the URL host. Empty
+# disables the rule; we keep a tight allowlist so a new external
+# host trips the policy immediately.
+allowed_domains:
+  - api.github.com
+  - "*.githubusercontent.com"

@@ -1,0 +1,26 @@
+name: SkilLock
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  skil-lock:
+    name: Verify skill capability deltas
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+      - uses: skills-lock/skil-lock-action@v0.1.0
+        with:
+          pin-binary: v0.1.0
