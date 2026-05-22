@@ -9,6 +9,7 @@ on:
 permissions:
   contents: read
   pull-requests: write
+  security-events: write
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -21,6 +22,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v6
-      - uses: skills-lock/skil-lock-action@v0.1.0
+      - uses: skills-lock/skil-lock-action@v0.1.1
         with:
-          pin-binary: v0.1.0
+          pin-binary: v0.1.1
+          sarif: true
