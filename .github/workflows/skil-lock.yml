@@ -21,6 +21,6 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v6
-      - uses: skills-lock/skil-lock-action@v0.1.0
+      - uses: skills-lock/skil-lock-action@v0.1.2
         with:
-          pin-binary: v0.1.0
+          pin-binary: v0.1.1
