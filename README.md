@@ -35,37 +35,35 @@ Block mode means the check fails (exits non-zero) when a PR adds any capability 
 
 Opening a PR from `example/drift` to `main` produces a comment like this:
 
-```
-### SkilLock — capability delta
-
-Comparing `skills.lock` (baseline) vs `<working tree>` (current).
-
-| Skill | Capability | Change | Detail | Reason |
-|---|---|---|---|---|
-| changelog-summary | shell_commands | + | `curl` | matches require_approval |
-| changelog-summary | network_urls | + | `https://internal.example.com/notify` | host not in allowed_domains |
-
-**Verdict:** BLOCK: 2 of 2 entries at severity >= medium
-
-**To approve, append to `.skil-lock-approvals.yaml`:**
-
-\`\`\`yaml
-schema_version: "0.1"
-approvals:
-  - skill: "changelog-summary"
-    delta:
-      added_shell_command: "curl"
-    reviewer: "you@example.com"
-    reviewed_at: "2026-05-20T17:00:00Z"
-    reason: "<why this delta is acceptable>"
-  - skill: "changelog-summary"
-    delta:
-      added_network_url: "https://internal.example.com/notify"
-    reviewer: "you@example.com"
-    reviewed_at: "2026-05-20T17:00:00Z"
-    reason: "<why this delta is acceptable>"
-\`\`\`
-```
+> ### SkilLock — capability delta
+>
+> Comparing `skills.lock` (baseline) vs `<working tree>` (current).
+>
+> | Skill | Capability | Change | Detail | Reason |
+> |---|---|---|---|---|
+> | changelog-summary | shell_commands | + | `curl` | matches require_approval |
+> | changelog-summary | network_urls | + | `https://internal.example.com/notify` | host not in allowed_domains |
+>
+> **Verdict:** BLOCK: 2 of 2 entries at severity >= medium
+>
+> **To approve, append to `.skil-lock-approvals.yaml`:**
+>
+> ```yaml
+> schema_version: "0.1"
+> approvals:
+>   - skill: "changelog-summary"
+>     delta:
+>       added_shell_command: "curl"
+>     reviewer: "you@example.com"
+>     reviewed_at: "2026-05-20T17:00:00Z"
+>     reason: "<why this delta is acceptable>"
+>   - skill: "changelog-summary"
+>     delta:
+>       added_network_url: "https://internal.example.com/notify"
+>     reviewer: "you@example.com"
+>     reviewed_at: "2026-05-20T17:00:00Z"
+>     reason: "<why this delta is acceptable>"
+> ```
 
 A reviewer who recognises one of those as legitimate (e.g. the new internal endpoint is approved) copies the relevant block, fills in `reviewer` + `reason`, commits, pushes. The check re-runs green for that delta. Entries that aren't approved still block.
 
