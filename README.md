@@ -10,7 +10,7 @@ This repository ships three illustrative Claude Code skills, a committed `skills
 
 | Skill | Behavior surface | What it demonstrates |
 |---|---|---|
-| [`hello-greeter`](./.claude/skills/hello-greeter/SKILL.md) | (none) | The minimum viable skill — markdown only |
+| [`hello-greeter`](./.claude/skills/hello-greeter/SKILL.md) | (none) | The minimum viable skill - markdown only |
 | [`changelog-summary`](./.claude/skills/changelog-summary/SKILL.md) | `cat`, `git`; reads `CHANGELOG.md` | A read-only skill that scans local state |
 | [`release-publisher`](./.claude/skills/release-publisher/SKILL.md) | `cat`, `gh`, `git`; reaches `api.github.com` | A skill that talks to the network (allowlisted host) |
 
@@ -20,9 +20,9 @@ This repository ships three illustrative Claude Code skills, a committed `skills
 
 [`.skil-lock.yaml`](./.skil-lock.yaml) sets `mode: block`. Three rules:
 
-- `require_approval: [shell_commands]` — any new shell command needs a paste-back approval entry
-- `protected_paths` — covers `.env`, PEM keys, SSH keys, `**/secrets/**`
-- `allowed_domains` — only `api.github.com` + `*.githubusercontent.com` are permitted; everything else triggers a flag
+- `require_approval: [shell_commands]` - any new shell command needs a paste-back approval entry
+- `protected_paths` - covers `.env`, PEM keys, SSH keys, `**/secrets/**`
+- `allowed_domains` - only `api.github.com` + `*.githubusercontent.com` are permitted; everything else triggers a flag
 
 Block mode means the check fails (exits non-zero) when a PR adds any capability at severity ≥ medium that isn't covered by an approval entry.
 
@@ -30,12 +30,12 @@ Block mode means the check fails (exits non-zero) when a PR adds any capability 
 
 [`example/drift`](https://github.com/skills-lock/example-claude-code-skills/tree/example/drift) modifies `changelog-summary` to add:
 
-- A `curl` command (new shell command — requires approval per the policy)
+- A `curl` command (new shell command - requires approval per the policy)
 - A POST to `https://internal.example.com/notify` (host not in `allowed_domains`)
 
 Opening a PR from `example/drift` to `main` produces a comment like this:
 
-> ### SkilLock — capability delta
+> ### SkilLock - capability delta
 >
 > Comparing `skills.lock` (baseline) vs `<working tree>` (current).
 >
@@ -86,8 +86,8 @@ skil-lock ci   # exit code 1, BLOCK verdict
 
 ## Related repositories
 
-- [skills-lock/skil-lock](https://github.com/skills-lock/skil-lock) — the CLI and lockfile spec
-- [skills-lock/skil-lock-action](https://github.com/skills-lock/skil-lock-action) — the GitHub Action wrapper used here
+- [skills-lock/skil-lock](https://github.com/skills-lock/skil-lock) - the CLI and lockfile spec
+- [skills-lock/skil-lock-action](https://github.com/skills-lock/skil-lock-action) - the GitHub Action wrapper used here
 
 ## License
 
