@@ -9,6 +9,7 @@ on:
 permissions:
   contents: read
   pull-requests: write
+  security-events: write
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -24,3 +25,4 @@ jobs:
       - uses: skills-lock/skil-lock-action@v0.1.2
         with:
           pin-binary: v0.1.2
+          sarif: true
