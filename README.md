@@ -74,7 +74,7 @@ git clone https://github.com/skills-lock/example-claude-code-skills.git
 cd example-claude-code-skills
 
 # Install skil-lock (Go 1.22+):
-go install github.com/skills-lock/skil-lock/cmd/skil-lock@v0.1.1
+go install github.com/skills-lock/skil-lock/cmd/skil-lock@v0.1.2
 
 # Scan and confirm the baseline passes:
 skil-lock ci
