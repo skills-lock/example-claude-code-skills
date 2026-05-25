@@ -76,6 +76,13 @@ cd example-claude-code-skills
 # Install skil-lock (Go 1.22+):
 go install github.com/skills-lock/skil-lock/cmd/skil-lock@v0.1.2
 
+# go install drops the binary in $(go env GOPATH)/bin (typically ~/go/bin).
+# If `skil-lock: command not found`, that directory is not on your PATH:
+export PATH="$(go env GOPATH)/bin:$PATH"
+
+# Or skip Go entirely and grab the prebuilt binary:
+# https://github.com/skills-lock/skil-lock/releases/tag/v0.1.2
+
 # Scan and confirm the baseline passes:
 skil-lock ci
 
